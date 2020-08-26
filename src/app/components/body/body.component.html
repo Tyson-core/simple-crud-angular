@@ -1,0 +1,65 @@
+<section class="container mt-3">
+  <h1 class="text-center">Simple CRUD</h1>
+  <form (ngSubmit)="handleSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="taskName">Task Name</label>
+      <input
+        type="text"
+        id="taskName"
+        placeholder="Please write the name of the task..."
+        class="form-control"
+        [(ngModel)]="name"
+        name="name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="taskInfo">Info Task</label>
+      <input
+        type="text"
+        id="taskInfo"
+        placeholder="Please write the info..."
+        class="form-control"
+        [(ngModel)]="info"
+        name="info"
+      />
+    </div>
+    <div class="alert alert-danger" *ngIf="error">You have errors!</div>
+    <button type="submit" class="btn btn-success btn-block" *ngIf="!updateMode">Add</button>
+    <button type="button" class="btn btn-info btn-block" *ngIf="updateMode"
+    (click)="editTask(name,info)">Update</button>
+  </form>
+
+  <h3 class="text-center mt-3 text-center" *ngIf="!condition">
+    You not have tasks
+  </h3>
+  <div *ngIf="condition">
+    <h1 class="mt-3 text-center" >TABLE TASK</h1>
+    <table class="mt-2 table mb-5">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Info</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of formArray;let i = index">
+          <th>{{i+1}}</th>
+          <th>{{item.name}}</th>
+          <th>{{item.info}}</th>
+          <th class="float-right">
+            <button type="button" class="btn btn-info mr-1"
+            (click)="handleUpdate(item)">
+              <i class="far fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-danger "
+            (click)="handleDelete(item.id)">
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
